@@ -66,6 +66,7 @@ public class RestApiController {
 //
 //    }
 //
+
     @PostMapping("/addPost")
     public ResponseEntity<String> addPost(@RequestBody Post post, @RequestParam int threadId) {
         System.out.println("Post: "+post);
@@ -95,13 +96,14 @@ public class RestApiController {
         int res = da.insertIntoThreads(thread);
         System.out.println(res);
         if (res > 0) {
-            System.out.println("YEs");
+            System.out.println("Yes");
             return ResponseEntity.ok("Post added successfully");
-        } else {
+        }
+        else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add thread");
         }
     }
-//
+
 //    @GetMapping("/viewAdmin")
 //    public String getAdminPage() {
 //        return "viewAdmin";

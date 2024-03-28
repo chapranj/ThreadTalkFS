@@ -10,7 +10,7 @@ export default function Threads() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:8080/`)
+        axios.get(`http://localhost:8080/threads`)
             .then(
                 (response) => {
                     setThreads(response.data)
@@ -33,7 +33,7 @@ export default function Threads() {
                         <h3 className='card-title' >{thread.title}</h3>
                         <p className='card-text' >Started By: <span>{thread.username}</span></p>
                     </div>
-                    <Link to={`/posts/${thread.threadId}`} className='btn btn-primary'>Start Talking</Link>
+                    <Link to={`/posts/${thread.id}`} className='btn btn-primary'>Start Talking</Link>
                 </div>
             ))}
 

@@ -23,7 +23,7 @@ export default function LoginComponent() {
   }
 
   function handleSubmit() {
-    if (auth.login(username, password)) {
+    if (auth.loginMethod(username, password)) {
       setErrorMessage(false)
       navigate('/threads')
     }
@@ -37,7 +37,7 @@ export default function LoginComponent() {
     <div className="container">
       <h1>Login</h1>
       {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-      <form onSubmit={handleSubmit}>
+      <form>
         <div className="mb-3">
           <label htmlFor="username" className="form-label">User Name:</label>
           <input type="text" className="form-control" id="username" name="username" value={username} onChange={handleUsernameChange} required />
@@ -46,7 +46,7 @@ export default function LoginComponent() {
           <label htmlFor="password" className="form-label">Password:</label>
           <input type="password" className="form-control" id="password" name="password" value={password} onChange={handlePasswordChange} required />
         </div>
-        <button type="submit" className="btn btn-primary">Login</button>
+        <button type="button" onClick={handleSubmit}  className="btn btn-primary">Login</button>
       </form>
     </div>
   );

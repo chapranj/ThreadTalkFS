@@ -17,7 +17,6 @@ INSERT INTO threads (title, username) VALUES
 ('Technical Support', 'nikolai'),
 ('Programming Help', 'nikolai');
 
-
 INSERT INTO posts (content, threadId, username) VALUES
 ('Hello, everyone! Welcome to the general discussion.', 1, 'chapranj'),
 ('Im excited to be part of this community!', 1, 'nikolai'),

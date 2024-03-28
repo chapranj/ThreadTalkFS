@@ -15,7 +15,7 @@ export default function StartThread() {
 
     async function addThread() {
         try {
-            const response = await axios.post(`http://localhost:8080/addThread`, {
+            const response = await axios.post(`http://localhost:8080/threads`, {
                 title: threadContent,
                 username: auth.username
             })

@@ -9,6 +9,7 @@ export default function Posts() {
     const { threadId } = useParams();
     const [posts, setPosts] = useState([])
     const [content, setContent] = useState('');
+    const [threadTitle, setThreadTitle] = useState('');
     const auth = useAuth();
 
     console.log("thread id: " + threadId)
@@ -17,27 +18,36 @@ export default function Posts() {
 
     useEffect(
         () => {
-            axios.get(`http://localhost:8080/view/${threadId}`)
-                .then(
-                    (response) => {
-                        console.log(response.data)
-                        setPosts(response.data)
-                    }
-                )
-        }, [posts]
+            console.log(threadId)
+            getPostsInThread()
+            // getThreadTitle()
+        }, []
 
     )
 
+    async function getPostsInThread(){
+        try{
+            const response = await axios.get(`http://localhost:8080/posts/${threadId}`)
+            if(response){
+                console.log(response)
+                setPosts(response.data)
+            }
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+
     async function addPost() {
         try {
-            const response = await axios.post(`http://localhost:8080/addPost?threadId=${threadId}`, {
+            const response = await axios.post(`http://localhost:8080/posts/${threadId}`, {
                 content: content,
-                threadId: threadId,
                 username: auth.username,
-                date: Date.now()
+                threadId: threadId
             });
             setContent('')
             console.log(response.data)
+            setPosts([...posts, response.data])
         }
         catch {
             console.log("error")
@@ -48,19 +58,18 @@ export default function Posts() {
         setContent(e.target.value);
     }
 
-
     return (
         <div className='container' >
             <div className="welcome-section">
-                <h2>Posts in Thread: {threadId}</h2>
+                <h2>Posts in Thread: {threadTitle}</h2>
             </div>
 
             <div className="discussion-section">
                 {posts.map(post => (
-                    <div key={post.postId} className="card mb-3">
+                    <div key={post.id} className="card mb-3">
                         <div className="card-body">
-                            <p className='card-text' >{post.content}</p>
-                            <span className='card-subtitle text-muted' >{post.username} • {post.date}</span>
+                            <p className='card-text'>{post.content}</p>
+                            <span className='card-subtitle text-muted' >{post.username}</span>
                         </div>
                     </div>
                 ))}
